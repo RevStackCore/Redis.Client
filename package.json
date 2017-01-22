@@ -1,0 +1,19 @@
+{
+  "name": "RevStackCore.Redis.Client",
+  "version": "1.0.0",
+  "description": "StackExchange.Redis typed POCO client",
+    "main": "RevStackCore.Redis.Client.sln",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/RevStackCore/Redis.Client.git"
+  },
+  "author": "S. Francis",
+  "license": "MIT",
+  "bugs": {
+        "url": "https://github.com/RevStackCore/Redis.Client/issues"
+  },
+    "homepage": "https://github.com/RevStackCore/Redis.Client"
+}
