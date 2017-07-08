@@ -1,8 +1,9 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workbench ActiveDocument="README.md">
+  <MonoDevelop.Ide.Workbench ActiveDocument="RevStackCore.Redis.Client/DbContext/RedisDbContext.cs">
     <Files>
-      <File FileName="RevStackCore.Redis.Client/RevStackCore.Redis.Client.csproj" Line="14" Column="3" />
-      <File FileName="README.md" Line="7" Column="1" />
+      <File FileName="RevStackCore.Redis.Client/DbContext/RedisDbContext.cs" Line="50" Column="23" />
+      <File FileName="RevStackCore.Redis.Client/Entity/ConnectionOptions.cs" Line="6" Column="45" />
+      <File FileName="RevStackCore.Redis.Client/Extensions/Extensions.cs" Line="10" Column="9" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />

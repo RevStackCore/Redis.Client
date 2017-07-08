@@ -1,9 +1,9 @@
-﻿<Project Sdk="Microsoft.NET.Sdk" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard1.5</TargetFramework>
 	<PackageId>RevStackCore.Redis.Client</PackageId>
-    <PackageVersion>1.0.0</PackageVersion>
+    <PackageVersion>1.0.1</PackageVersion>
     <Authors>S. Francis</Authors>
     <Description>StackExchange.Redis typed POCO client</Description>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
@@ -13,22 +13,19 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="RevStackCore.Extensions">
-      <Version>1.0.0</Version>
+    <PackageReference Include="RevStackCore.Extensions" Version="1.0.0">
     </PackageReference>
-    <PackageReference Include="RevStackCore.Serialization">
-      <Version>1.0.2</Version>
+    <PackageReference Include="RevStackCore.Serialization" Version="1.0.2">
     </PackageReference>
-    <PackageReference Include="StackExchange.Redis">
-      <Version>1.2.0</Version>
+    <PackageReference Include="StackExchange.Redis" Version="1.2.0">
     </PackageReference>
-    <PackageReference Include="RevStackCore.Pattern">
-      <Version>1.0.5</Version>
+    <PackageReference Include="RevStackCore.Pattern" Version="1.0.5">
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="DbContext\" />
     <Folder Include="Extensions\" />
     <Folder Include="TypedClient\" />
+    <Folder Include="Entity\" />
   </ItemGroup>
 </Project>
