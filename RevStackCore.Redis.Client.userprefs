@@ -1,7 +1,7 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workbench ActiveDocument="RevStackCore.Redis.Client/DbContext/RedisDbContext.cs">
     <Files>
-      <File FileName="RevStackCore.Redis.Client/DbContext/RedisDbContext.cs" Line="1" Column="1" />
+      <File FileName="RevStackCore.Redis.Client/DbContext/RedisDbContext.cs" Line="101" Column="14" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
