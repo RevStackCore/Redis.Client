@@ -19,6 +19,8 @@ namespace RevStackCore.Redis.Client
         private readonly int _connectRetry;
         private readonly int _connectTimeout;
         private readonly ConnectionOptions _options;
+        private ConnectionMultiplexer _connectionMultiplexer;
+
 		/// <summary>
 		/// Initializes a new instance of the <see cref="T:RevStackCore.Redis.RedisDbContext"/> class.
 		/// </summary>
@@ -30,6 +32,7 @@ namespace RevStackCore.Redis.Client
             _syncTimeout = SYNC_TIMEOUT;
             _connectTimeout = CONNECT_TIMEOUT;
             _connectRetry = CONNECT_RETRY;
+            setConnectionMultiplexer();
 		}
 
 		
@@ -45,6 +48,7 @@ namespace RevStackCore.Redis.Client
             _connectTimeout = CONNECT_TIMEOUT;
             _connectRetry = CONNECT_RETRY;
             _options = null;
+            setConnectionMultiplexer();
 		}
 
         /// <summary>
@@ -59,6 +63,7 @@ namespace RevStackCore.Redis.Client
             _connectTimeout = CONNECT_TIMEOUT;
             _connectRetry = CONNECT_RETRY;
             _options = null;
+            setConnectionMultiplexer();
         }
 
 		/// <summary>
@@ -74,6 +79,7 @@ namespace RevStackCore.Redis.Client
             _connectTimeout = CONNECT_TIMEOUT;
             _connectRetry = CONNECT_RETRY;
             _options = null;
+            setConnectionMultiplexer();
 		}
 
         /// <summary>
@@ -89,6 +95,7 @@ namespace RevStackCore.Redis.Client
             _connectTimeout = CONNECT_TIMEOUT;
             _connectRetry = CONNECT_RETRY;
             _options = null;
+            setConnectionMultiplexer();
         }
 
         public RedisDbContext(string connection, int syncTimeout,int connectTimeout,int connectRetry, bool abortConnect)
@@ -99,6 +106,7 @@ namespace RevStackCore.Redis.Client
             _connectTimeout = connectTimeout;
             _connectRetry = connectRetry;
             _options = null;
+            setConnectionMultiplexer();
         }
 
         public RedisDbContext(string connection, ConnectionOptions options)
@@ -106,6 +114,7 @@ namespace RevStackCore.Redis.Client
 			_connection = connection;
             _abortConnect = false;
 			_options = options;
+            setConnectionMultiplexer();
 		}
 
 		/// <summary>
@@ -114,34 +123,20 @@ namespace RevStackCore.Redis.Client
 		/// <returns>The database.</returns>
 		public IDatabase Database()
 		{
-            if(_options!=null)
-            {
-                ConfigurationOptions options = _options.ToRedisConfigurationOptions();
-                options.EndPoints.Add(_connection);
-				ConnectionMultiplexer redis = ConnectionMultiplexer.Connect(options);
-				return redis.GetDatabase();
-            }
-            else
-            {
-                string connection = _connection + ",abortConnect=" + _abortConnect.ToString();
-                var redisConfig = ConfigurationOptions.Parse(connection);
-                redisConfig.SyncTimeout = _syncTimeout;
-                redisConfig.ConnectTimeout = _connectTimeout;
-                redisConfig.ConnectRetry = _connectRetry;       
-                ConnectionMultiplexer redis = ConnectionMultiplexer.Connect(redisConfig);
-				return redis.GetDatabase();
-            }
-
+            return _connectionMultiplexer.GetDatabase();
 		}
 
-        public async Task<IDatabase> DatabaseAsync()
+        /// <summary>
+        /// Sets the connection multiplexer.
+        /// </summary>
+        private void setConnectionMultiplexer()
         {
             if (_options != null)
             {
                 ConfigurationOptions options = _options.ToRedisConfigurationOptions();
                 options.EndPoints.Add(_connection);
-                ConnectionMultiplexer redis = await ConnectionMultiplexer.ConnectAsync(options);
-                return redis.GetDatabase();
+                _connectionMultiplexer = ConnectionMultiplexer.Connect(options);
+
             }
             else
             {
@@ -150,8 +145,7 @@ namespace RevStackCore.Redis.Client
                 redisConfig.SyncTimeout = _syncTimeout;
                 redisConfig.ConnectTimeout = _connectTimeout;
                 redisConfig.ConnectRetry = _connectRetry;
-                ConnectionMultiplexer redis = await ConnectionMultiplexer.ConnectAsync(redisConfig);
-                return redis.GetDatabase();
+                _connectionMultiplexer = ConnectionMultiplexer.Connect(redisConfig);
             }
         }
 	}
