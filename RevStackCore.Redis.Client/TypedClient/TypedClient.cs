@@ -46,12 +46,23 @@ namespace RevStackCore.Redis.Client
 			return Json.DeserializeObject<TEntity>(value);
 		}
 
-		/// <summary>
-		/// Insert the specified entity.
-		/// </summary>
-		/// <returns>The new entity</returns>
-		/// <param name="entity">Entity.</param>
-		public TEntity Insert(TEntity entity)
+        public TEntity GetById(TKey id, bool fromCache)
+        {
+            if(!fromCache)
+            {
+                return GetById(id);
+            }
+            string key = Convert.ToString(id);
+            var value = _db.StringGet(key);
+            return Json.DeserializeObject<TEntity>(value);
+        }
+
+        /// <summary>
+        /// Insert the specified entity.
+        /// </summary>
+        /// <returns>The new entity</returns>
+        /// <param name="entity">Entity.</param>
+        public TEntity Insert(TEntity entity)
 		{
 			//check for null reference type
 			if (entity == default(TEntity))
@@ -72,12 +83,38 @@ namespace RevStackCore.Redis.Client
 			return entity;
 		}
 
-		/// <summary>
-		/// Store the specified entity.
-		/// </summary>
-		/// <returns>The stored entity</returns>
-		/// <param name="entity">Entity.</param>
-		public TEntity Store(TEntity entity)
+        /// <summary>
+        /// Insert the specified entity with expiration. No internal bookkeeping kept for cached entries
+        /// </summary>
+        /// <returns>The insert.</returns>
+        /// <param name="entity">Entity.</param>
+        public TEntity Insert(TEntity entity, TimeSpan expiry)
+        {
+            //check for null reference type
+            if (entity == default(TEntity))
+                return default(TEntity);
+            //check if entity has Id assigned
+            // if not, if type string, guid, assign new Guid string
+            // if type int,long assign incremented value of current length.ToString() of the typed set
+            if (!entity.HasPropertyValue<TEntity, TKey>())
+            {
+                entity = assignEntityId(entity);
+                if (entity == null)
+                {
+                    throw new Exception("Entity requires an assigned Id value for nonstandard Id value type");
+                }
+            }
+
+            StoreEntity(entity,expiry);
+            return entity;
+        }
+
+        /// <summary>
+        /// Store/Update the specified entity.
+        /// </summary>
+        /// <returns>The stored entity</returns>
+        /// <param name="entity">Entity.</param>
+        public TEntity Store(TEntity entity)
 		{
 			//check for null reference type
 			if (entity == default(TEntity))
@@ -106,11 +143,28 @@ namespace RevStackCore.Redis.Client
 			RemoveKeyFromUrn(entity.Id);
 		}
 
-		/// <summary>
-		/// Adds the key to typed set.
-		/// </summary>
-		/// <param name="key">Key.</param>
-		public void AddKeyToTypedSet(TKey key)
+        /// <summary>
+        /// Delete the specified entity from Cache.
+        /// </summary>
+        /// <param name="entity">Entity.</param>
+        /// <param name="fromCache">If set to <c>true</c> from cache.</param>
+        public void Delete(TEntity entity, bool fromCache)
+        {
+            if (entity == default(TEntity))
+                return;
+            if(!fromCache)
+            {
+                Delete(entity);
+            }
+            string key = Convert.ToString(entity.Id);
+            _db.KeyDelete(key);
+        }
+
+        /// <summary>
+        /// Adds the key to typed set.
+        /// </summary>
+        /// <param name="key">Key.</param>
+        public void AddKeyToTypedSet(TKey key)
 		{
 			string id = key.ToString();
 			string setKey = GetSetKey();
@@ -171,12 +225,23 @@ namespace RevStackCore.Redis.Client
 			string json = Json.SerializeObject(entity);
 			_db.StringSet(key, json);
 		}
+        /// <summary>
+        /// Stores the entity with expiration
+        /// </summary>
+        /// <param name="entity">Entity.</param>
+        /// <param name="expiry">Expiry.</param>
+        public void StoreEntity(TEntity entity, TimeSpan expiry)
+        {
+            string key = Convert.ToString(entity.Id);
+            string json = Json.SerializeObject(entity);
+            _db.StringSet(key, json, expiry);
+        }
 
-		/// <summary>
-		/// Removes the key from urn.
-		/// </summary>
-		/// <param name="key">Key.</param>
-		public void RemoveKeyFromUrn(TKey key)
+        /// <summary>
+        /// Removes the key from urn.
+        /// </summary>
+        /// <param name="key">Key.</param>
+        public void RemoveKeyFromUrn(TKey key)
 		{
 			var id = GetTypedURNKey(key);
 			_db.KeyDelete(id);
