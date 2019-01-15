@@ -286,15 +286,18 @@ namespace RevStackCore.Redis.Client
 		/// <returns>The all values.</returns>
 		private IEnumerable<TEntity> getAllValues()
 		{
-			var keys = GetSetUrnKeys();
+            var keys = GetSetUrnKeys();
 			if (keys == null || keys.Count() < 1) return new List<TEntity>();
 			var redisKeys = keys.Select(key => (RedisKey)key).ToArray();
 			var resultBytesArray = _db.StringGet(redisKeys);
 			var results = new List<TEntity>();
 			foreach (var resultBytes in resultBytesArray)
 			{
-				var result = Json.DeserializeObject<TEntity>(resultBytes);
-				results.Add(result);
+                if(resultBytes!=RedisValue.Null)
+                {
+                    var result = Json.DeserializeObject<TEntity>(resultBytes);
+                    results.Add(result);
+                }
 			}
 			return results;
 		}
