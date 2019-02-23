@@ -3,11 +3,14 @@
   <PropertyGroup>
     <TargetFramework>netstandard1.6</TargetFramework>
 	<PackageId>RevStackCore.Redis.Client</PackageId>
-    <PackageVersion>1.3.1</PackageVersion>
+    <PackageVersion>1.3.2</PackageVersion>
     <Authors>S. Francis</Authors>
     <Description>StackExchange.Redis typed POCO client</Description>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <PackageReleaseNotes>Net Standard 1.6 release</PackageReleaseNotes>
+    <PackageProjectUrl>https://github.com/RevStackCore/Redis.Client.git</PackageProjectUrl>
+    <PackageLicenseUrl>https://github.com/RevStackCore/Redis.Client/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageIconUrl>https://s3.amazonaws.com/revstack/icons/revstackcore-64x64.png</PackageIconUrl>
     <Copyright>Copyright 2017</Copyright>
     <PackageTags>RevStackCore Redis POCO client</PackageTags>	
   </PropertyGroup>
