@@ -1,6 +1,6 @@
 {
   "name": "RevStackCore.Redis.Client",
-  "version": "1.3.2",
+  "version": "1.3.3",
   "description": "StackExchange.Redis typed POCO client",
     "main": "RevStackCore.Redis.Client.sln",
   "scripts": {

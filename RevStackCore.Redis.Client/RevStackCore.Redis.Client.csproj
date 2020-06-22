@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard1.6</TargetFramework>
 	<PackageId>RevStackCore.Redis.Client</PackageId>
-    <PackageVersion>1.3.2</PackageVersion>
+    <PackageVersion>1.3.3</PackageVersion>
     <Authors>S. Francis</Authors>
     <Description>StackExchange.Redis typed POCO client</Description>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
@@ -18,8 +18,8 @@
   <ItemGroup>
     <PackageReference Include="RevStackCore.Pattern" Version="1.0.5">
     </PackageReference>
-    <PackageReference Include="RevStackCore.Extensions" Version="1.0.7" />
-    <PackageReference Include="RevStackCore.Serialization" Version="1.0.3" />
+    <PackageReference Include="RevStackCore.Extensions" Version="1.1.0" />
+    <PackageReference Include="RevStackCore.Serialization" Version="1.0.4" />
     <PackageReference Include="StackExchange.Redis" Version="1.2.6" />
   </ItemGroup>
   <ItemGroup>
