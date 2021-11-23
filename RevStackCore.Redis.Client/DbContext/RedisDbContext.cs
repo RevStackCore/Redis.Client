@@ -43,11 +43,10 @@ namespace RevStackCore.Redis.Client
 		public RedisDbContext(string connection)
 		{
 			_connection = connection;
-            // changed to remove defaults and consume only connection string
-            /*_abortConnect = false;
+            _abortConnect = false;
             _syncTimeout = SYNC_TIMEOUT;
             _connectTimeout = CONNECT_TIMEOUT;
-            _connectRetry = CONNECT_RETRY;*/
+            _connectRetry = CONNECT_RETRY;
             _options = null;
             setConnectionMultiplexer();
 		}
