@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
 	<PackageId>RevStackCore.Redis.Client</PackageId>
-    <PackageVersion>1.3.4</PackageVersion>
+    <PackageVersion>1.3.5</PackageVersion>
     <Authors>S. Francis</Authors>
     <Description>StackExchange.Redis typed POCO client</Description>
     <PackageReleaseNotes>Net Standard 1.6 release</PackageReleaseNotes>
@@ -12,7 +12,7 @@
     <PackageIconUrl>https://s3.amazonaws.com/revstack/icons/revstackcore-64x64.png</PackageIconUrl>
     <Copyright>Copyright 2017</Copyright>
     <PackageTags>RevStackCore Redis POCO client</PackageTags>	
-    <ReleaseVersion>1.3.4</ReleaseVersion>
+    <ReleaseVersion>1.3.5</ReleaseVersion>
   </PropertyGroup>
 
   <ItemGroup>
